@@ -58,10 +58,10 @@ class CrashTesterTest {
     }
 
     @Test
-    public void testCarCrashWithMinimumSpeedLimitNoSeatTaken() {
+    public void testCarCrashMinimumSpeedLimitNoSeatTaken() {
         // Arrange
-        Car car = new Car(30, // Minimum speed to open the airbag
-                Set.of(new Seat(false, false), new Seat(false, false))); // The seats are not taken
+        Car car = new Car(minimumSpeedToOpenTheAirbag, // Speed is at the limit
+                Set.of(new Seat(false, false), new Seat(false, false))); // No seats are taken
         CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag); // Airbag speed limit is 30
 
         // Act
@@ -73,9 +73,9 @@ class CrashTesterTest {
     }
 
     @Test
-    public void testCarCrashWithMinimumSpeedLimitSomeSeatTaken(){
+    public void testCarCrashMinimumSpeedLimitSomeSeatTaken(){
         // Arrange
-        Car car = new Car(30, // Minimum speed to open the airbag
+        Car car = new Car(minimumSpeedToOpenTheAirbag, // Speed is at the limit
                 Set.of(new Seat(false, false), new Seat(true, false))); // Some seats are taken
         CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag); // Airbag speed limit is 30
 
@@ -84,6 +84,6 @@ class CrashTesterTest {
 
         // Assert
         assertTrue(car.seats().stream().anyMatch(Seat::isAirbagOpen),
-                "Expected airbag to open when speed is at the limit and at least one seat is taken.");
+                "Expected the airbag to open when speed is at or above the limit and a seat is taken.");
     }
 }
