@@ -14,9 +14,9 @@ class CrashTesterTest {
     @Test
     public void testCarCrashBelowSpeedLimitNoSeatTaken() {
         // Arrange
-        Car car = new Car(29,
-                Set.of(new Seat(false, false), new Seat(false, false)));
-        CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag);
+        Car car = new Car(29, // Speed is below limit
+                Set.of(new Seat(false, false), new Seat(false, false))); // The seats are not taken
+        CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag); // Airbag speed limit is 30
 
         // Act
         crashTester.testCrash(car);
@@ -27,11 +27,11 @@ class CrashTesterTest {
     }
 
     @Test
-    public void testCarCrashBelowSpeedLimitWithSeatTaken() {
+    public void testCarCrashBelowSpeedLimitSeatTaken() {
         // Arrange
-        Car car = new Car(29,
-                Set.of(new Seat(true, false), new Seat(true, false)));
-        CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag);
+        Car car = new Car(29, // Speed is below limit
+                Set.of(new Seat(true, false), new Seat(true, false))); // The seats are taken
+        CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag); // Airbag speed limit is 30
 
         // Act
         crashTester.testCrash(car);
