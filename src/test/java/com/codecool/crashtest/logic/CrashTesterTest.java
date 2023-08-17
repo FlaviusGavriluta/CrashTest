@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CrashTesterTest {
     int minimumSpeedToOpenTheAirbag = 30;
@@ -54,5 +55,20 @@ class CrashTesterTest {
         // Assert
         assertFalse(car.seats().stream().anyMatch(Seat::isAirbagOpen),
                 "Expected no airbag to open when speed is below limit and at least one seat is taken.");
+    }
+
+    @Test
+    public void testCarCrashWithMinimumSpeedLimitNoSeatTaken() {
+        // Arrange
+        Car car = new Car(30, // Minimum speed to open the airbag
+                Set.of(new Seat(false, false), new Seat(false, false))); // The seats are not taken
+        CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag); // Airbag speed limit is 30
+
+        // Act
+        crashTester.testCrash(car);
+
+        // Assert
+        assertFalse(car.seats().stream().anyMatch(Seat::isAirbagOpen),
+                "Expected no airbag to open when speed is at the limit and no seats are taken.");
     }
 }
