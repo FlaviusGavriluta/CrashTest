@@ -25,4 +25,19 @@ class CrashTesterTest {
         assertFalse(car.seats().stream().anyMatch(Seat::isAirbagOpen),
                 "Expected no airbag to open when speed is below limit and no seat is taken.");
     }
+
+    @Test
+    public void testCarCrashBelowSpeedLimitWithSeatTaken() {
+        // Arrange
+        Car car = new Car(29,
+                Set.of(new Seat(true, false), new Seat(true, false)));
+        CrashTester crashTester = new CrashTester(minimumSpeedToOpenTheAirbag);
+
+        // Act
+        crashTester.testCrash(car);
+
+        // Assert
+        assertFalse(car.seats().stream().anyMatch(Seat::isAirbagOpen),
+                "Expected no airbag to open when speed is below limit and no seat is taken.");
+    }
 }
